@@ -1,0 +1,25 @@
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+
+[[redirects]]
+  from = "/adatvedelem"
+  to = "/"
+
+[[redirects]]
+  from = "/userpage"
+  to = "/"
+
+[[redirects]]
+  from = "/adminpage"
+  to = "/"
+
+
+[[redirects]]
+  from = "/accessdenied"
+  to = "/"
+
+[[redirects]]
+  from = "/docs"
+  to = "/"
