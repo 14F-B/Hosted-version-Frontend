@@ -1,1 +1,1 @@
-# frontend
+# Hosted version (Frontend)
