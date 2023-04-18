@@ -118,7 +118,7 @@ import 'jspdf-autotable';
 export default {
   data(){
     return{
-    citizenship: null,
+    citizenship: "Magyar",
     eventCategory: null,
     eventAgelimit: null,
 

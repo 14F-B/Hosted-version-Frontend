@@ -42,7 +42,7 @@ import { mapGetters } from 'vuex';
 
 export default {
   methods: {
-    cancelApplication(locationId, eventId) {
+    async cancelApplication(locationId, eventId) {
     const data = {
         locationId: locationId,
         eventId: eventId,
@@ -50,7 +50,7 @@ export default {
         userEmail: this.getEmail
         };
 
-  axios.post('/cancelApplication', data)
+  await axios.post('/cancelApplication', data)
     .then(response => {
       // itt kezelheted a választ a szerverről
       console.log(response);

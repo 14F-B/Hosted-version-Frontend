@@ -11,7 +11,7 @@
                     <div class="card h-100 aos-init aos-animate eventcard" data-aos="fade-down">
                       <img style="height: 200px;" :src="event.url_link" class="card-img-top" alt="...">
                       <div class="card-body" data-aos="fade-up">
-                        <h3>{{ event.name }}</h3>
+                        <h3>{{ event.name }} {{ event.agelimit > 0 ? '(' + event.agelimit + '+ )' : '' }}</h3>
                         <i class="bi bi-calendar2-week event-icons">{{ event.formatted_date }}</i><br>
                         <i class="bi bi-pin-map event-icons"><td>{{ event.city }}, {{ event.street }} {{ event.house_number ? event.house_number + '.' : '' }}</td></i><br>
                         <i class="bi bi-person-lines-fill event-icons">{{ event.performer_name }}</i>
@@ -51,7 +51,7 @@ export default {
   })
 },
   methods:{
-    applyToLocation(locationId) {
+    async applyToLocation(locationId) {
     const [location, event, date, ageLimit] = locationId.split(';');
 
     const data = {
@@ -63,7 +63,7 @@ export default {
       userBirthday: this.getBirthday,
       userEmail: this.getEmail,
     };
-    axios.post('/applyToLocation', data)
+    await axios.post('/applyToLocation', data)
       .then(response => {
         console.log(response.data);
         const successMsg = document.createElement('div');
@@ -82,18 +82,18 @@ export default {
       })
       .catch(error => {
         console.log(error);
-        // const successMsg = document.createElement('div');
-        // successMsg.textContent = 'Sikertelen jelentkezés, próbáld újra!';
-        // successMsg.style.position = 'fixed';
-        // successMsg.style.bottom = '10px';
-        // successMsg.style.left = '10px';
-        // successMsg.style.padding = '10px';
-        // successMsg.style.backgroundColor = 'red';
-        // successMsg.style.color = '#FFF';
-        // document.body.appendChild(successMsg);
-        // setTimeout(function(){
-        //   successMsg.remove();
-        // }, 5000);
+        const successMsg = document.createElement('div');
+        successMsg.textContent = 'Sikertelen jelentkezés, próbáld újra!';
+        successMsg.style.position = 'fixed';
+        successMsg.style.bottom = '10px';
+        successMsg.style.left = '10px';
+        successMsg.style.padding = '10px';
+        successMsg.style.backgroundColor = 'red';
+        successMsg.style.color = '#FFF';
+        document.body.appendChild(successMsg);
+        setTimeout(function(){
+          successMsg.remove();
+        }, 5000);
 
       });
   }

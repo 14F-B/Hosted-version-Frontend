@@ -4,7 +4,7 @@
 <body>
   <div class="container mt-5 pb-5">
     <h1 class="text-center" style="padding-top:100px">GO EVENT! - API Service</h1>
-    <p><span class="fw-bold">Host address:</span>  https://dull-teal-macaw-vest.cyclic.app/docs</p>
+    <p><span class="fw-bold">Host address:</span>  https://goeventapiservice.cyclic.app/docs</p>
     <hr>
 
     <div class="row">
@@ -36,12 +36,31 @@
         </pre>
       </div>
 
-      <div class="col-md-12">
-        <h3><div class="btn btn-success">GET</div> /archive</h3>
-        <p>Visszaadja az összes múltbeli eseményt, mely a lekérdezés időpontjában már nem aktuális.</p>
-
+    <div class="col-md-12">
+        <h3><div class="btn btn-success">GET</div> /nextevent</h3>
+        <p>Visszaadja a következő esemény nevét, idejét és helyszínét</p>
+ 
         <h4>Example Response:</h4>
         <pre>
+[
+  {
+    "name": "Litera-Túra",
+    "date": "2023-05-20T16:30:00.000Z",
+    "city": "Mosonmagyaróvár",
+    "street": "Deák Ferenc Tér",
+    "house_number": "5.",
+  },
+]
+          </pre>
+        </div>
+
+
+    <div class="col-md-12">
+      <h3><div class="btn btn-success">GET</div> /archive</h3>
+      <p>Visszaadja az összes múltbeli eseményt, mely a lekérdezés időpontjában már nem aktuális.</p>
+
+      <h4>Example Response:</h4>
+      <pre>
 [
   {
     "id": 41,
@@ -68,10 +87,10 @@
         <p>Visszaadja a keresett eseményeket a kategóriája alapján</p>
         <h4>Parameters:</h4>
         <ul>
-          <!-- <li><code>0</code> (required) - Korhatár nélküli</li>
+          <li><code>0</code> (required) - Korhatár nélküli</li>
           <li><code>12</code> (required) - 12 éven felülieknek</li>
           <li><code>16</code> (required) - 16 éven felülieknek</li>
-          <li><code>18</code> (required) - 18 éven felülieknek</li> -->
+          <li><code>18</code> (required) - 18 éven felülieknek</li>
         </ul>
         <h4>Example Request:</h4>
         <pre>GET /eventcategory/sport</pre>
