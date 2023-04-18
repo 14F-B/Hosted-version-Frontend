@@ -4,13 +4,12 @@
             <thead>
                 <tr class="adminpage-tableheader bg-light">
                     <th scope="col">#</th>
-                    <th scope="col" class="col-2">Esemény neve</th>
+                    <th scope="col" class="col-3">Esemény neve</th>
                     <th scope="col" class="col-2">Időpont</th>
                     <th scope="col" class="col-3">Helyszín</th>
-                    <th scope="col" class="col-1">Max. létszám</th>
-                    <th scope="col" class="col-1">Jk. száma</th>
+                    <th scope="col" class="col-1">JK. Száma</th>
                     <th scope="col" class="col-1">Korhatár</th>
-                    <th scope="col" class="col-1">Szerkesztés</th>
+                    <th scope="col" class="col-1">Műveletek</th>
                 </tr>
             </thead>
             <tbody class="text-white ">
@@ -19,9 +18,13 @@
                     <td>{{ event.name }}</td>
                     <td>{{ new Date(event.date).toLocaleString('hu-HU', { dateStyle: 'short', timeStyle: 'short' }) }}</td>
                     <td>{{ event.city }}, {{ event.street }} {{ event.house_number ? event.house_number + '.' : '' }}</td>
-                    <td>{{ event.capacity }}</td>
-                    <td>{{ event.applied }}</td>
-                    <td>{{ event.agelimit }}</td>
+                    <td>
+                      {{ event.capacity }} / {{ event.applied }}
+                      <span class="appliedpercent" v-if="event.capacity > 0 && event.applied > 0">
+                        ({{ Math.round((event.applied / event.capacity) * 100) }}%)
+                      </span>
+                    </td>                    
+                    <td>{{ event.agelimit > 0 ? event.agelimit + '+' : '-' }}</td>
                     <td><div class="d-flex align-items-center">
 
                         <!-- <form @submit.prevent="modifyEvent(index)" class="me-2">
@@ -144,6 +147,11 @@ export default {
 #eventTable,
 #usersTable {
   min-height: 100vh;
+}
+
+.appliedpercent{
+  color: yellow; 
+  font-size: 11px;
 }
 
 </style>
