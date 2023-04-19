@@ -34,7 +34,7 @@
                           </button>
                         </form> -->
       
-                        <form @submit.prevent="deleteEvent(event.id)">
+                        <form @submit.prevent="deleteEvent(event.id,event.name)">
                           <button type="submit" class="btn bg-transparent btn-sm" @click="confirmDelete(event.name)">
                             <i class="bi bi-trash3-fill p-2 text-danger"></i>
                           </button>
@@ -74,7 +74,7 @@
         <td>{{ new Date().getFullYear() - new Date(user.birthdate).getFullYear() }} éves</td>
         <td>{{ user.permission }}</td>
         <td>
-          <form @submit.prevent="deleteUser(user.id)">
+          <form @submit.prevent="deleteUser(user.id,user.name)">
             <button type="submit" class="btn bg-transparent btn-sm" @click="confirmDelete(user.name)">
               <i class="bi bi-person-x p-2 text-danger"></i>
             </button>
@@ -116,7 +116,8 @@ export default {
       });
   },
   methods: {
-  deleteUser(id) {
+  deleteUser(id, username) {
+    if (confirm('Biztosan törölni szeretné a(z)'+ ' "'+ username  +'" ' +'nevű felhasználót?')) {
     axios.delete('/deleteUser/' + id)
       .then(response => {
         // Sikeres törlés esetén a felhasználói tömb frissítése
@@ -126,8 +127,10 @@ export default {
         console.log(error);
       });
       location.reload();
+  }
   },
-  deleteEvent(id) {
+  deleteEvent(id,eventname) {
+    if (confirm('Biztosan törölni szeretné a(z)'+ ' "'+ eventname  +'" ' +' eseményt?')) {
     axios.delete('/deleteEvent/' + id)
       .then(response => {
         // Sikeres törlés esetén a felhasználói tömb frissítése
@@ -137,8 +140,9 @@ export default {
         console.log(error);
       });
       location.reload();
+  }
   },
-},
+}
 };
 
 </script>

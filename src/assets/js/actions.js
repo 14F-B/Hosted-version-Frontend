@@ -1,5 +1,5 @@
 (function() {
-  
+  "use strict";
 
   /**
    * Easy selector helper function
@@ -197,6 +197,18 @@
   });
 
   /**
+   * Glightbox 
+   */
+  const glightbox = GLightbox({
+    selector: '.glightbox'
+  });
+
+  const mediaLightbox = GLightbox({
+    selector: '.media'
+  });
+
+
+  /**
    * Animált megjelenés
    */
   window.addEventListener('load', () => {
@@ -208,4 +220,116 @@
     })
   });
 
-})
+})()
+
+// Esemény / Users tábla mutatása
+function eventShow() {
+  var eventsShow = document.getElementById('eventTable');
+  var usersShow = document.getElementById('usersTable');
+  if (eventsShow.style.display === 'none') {
+    eventsShow.style.display = 'block';
+    usersShow.style.display ='none';
+  } else {
+    eventsShow.style.display = 'none';
+    usersShow.style.display ='block';
+
+  }
+  var button = document.getElementById("btn_changeTable");
+  if (button.textContent === "Felhasználók listája") {
+    button.textContent = "Események listája";
+  } else {
+    button.textContent = "Felhasználók listája";
+  }
+}
+
+// Oldal újratöltése gombra kattintás esetén
+function refreshsite() {
+const refreshButton = document.getElementById("btn_refresh");
+
+  refreshButton.addEventListener("click", function() {
+  window.location.reload(true);
+    
+
+});
+}
+
+
+// Adatok mentése excel táblázatba
+function exportevents(type){
+  var eventdata = document.getElementById('tbl_events');
+  var excelFile = XLSX.utils.table_to_book(eventdata, {sheet: "Események (events)"});
+  var now = new Date();
+  var datetime = now.toLocaleString().replace(/[/:\s]/g, '_');
+
+
+  XLSX.write(excelFile, { bookType: type, bookSST: true, type: 'base64' });
+  XLSX.writeFile(excelFile,"export_events_"+ datetime +"."+ type);
+}
+
+
+function exportusers(type){
+
+  var usersdata = document.getElementById('tbl_users');
+  var excelFile = XLSX.utils.table_to_book(usersdata, {sheet: "Felhasználok (users)"});
+  var now = new Date();
+  var datetime = now.toLocaleString().replace(/[/:\s]/g, '_');
+
+  XLSX.write(excelFile, { bookType: type, bookSST: true, type: 'base64' });
+  XLSX.writeFile(excelFile,"export_users_"+ datetime +"."+ type);
+}
+
+
+
+function setStyleCookie(style) {
+  document.cookie = `selectedStyle=${style}; max-age=${-1}; path=/`;
+}
+
+function getStyleCookie() {
+  const cookies = document.cookie.split('; ').reduce((acc, cookie) => {
+    const [name, value] = cookie.split('=');
+    return { ...acc, [name]: value };
+  }, {});
+
+  return cookies.selectedStyle || 'light';
+}
+
+// Dark - Light stílus
+// function toggleStylesheet() {
+//   const style_light = document.getElementById('style_light');
+//   const style_dark = document.getElementById('style_dark');
+//   const button = document.getElementById('style-toggle');
+
+
+//   if (style_light.disabled) {
+//     button.innerHTML = '<i class="bi bi-moon-fill text-dark"></i>';
+
+//     style_light.disabled = false;
+//     style_dark.disabled = true;
+//     setStyleCookie('light');
+//   } else {
+//     button.innerHTML = '<i class="bi bi-sun-fill text-light"></i>';
+
+//     style_light.disabled = true;
+//     style_dark.disabled = false;
+//     setStyleCookie('dark');
+
+//   }
+// }
+
+// window.addEventListener('load', () => {
+//   const selectedStyle = getStyleCookie();
+//   const style_light = document.getElementById('style_light');
+//   const style_dark = document.getElementById('style_dark');
+//   const button = document.getElementById('style-toggle');
+
+//   if (selectedStyle === 'dark') {
+//     style_light.disabled = true;
+//     style_dark.disabled = false;
+//     button.innerHTML = '<i class="bi bi-sun-fill text-light"></i>';
+//   } else {
+//     style_light.disabled = false;
+//     style_dark.disabled = true;
+//     button.innerHTML = '<i class="bi bi-moon-fill text-dark"></i>';
+//   }
+// });
+

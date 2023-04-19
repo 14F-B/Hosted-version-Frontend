@@ -18,7 +18,7 @@
           <td class="text-white">{{ eventsbyId.city }}, {{ eventsbyId.street }} {{ eventsbyId.house_number  ? eventsbyId.house_number + '.' : '' }}</td>
           <td class="text-white">{{ eventsbyId.formatted_date }}</td>
           <td class="text-white">
-            <form @submit.prevent="cancelApplication(eventsbyId.loc_id, eventsbyId.id)">
+            <form @submit.prevent="cancelApplication(eventsbyId.loc_id, eventsbyId.id,eventsbyId.name)">
               <button type="submit" id="cancelButton" class="btn btn-danger btn-sm">
                 <i class="bi bi-x-circle d-flex align-items-center"><span class="p-1">Lemondom</span></i>
               </button>
@@ -42,15 +42,17 @@ import { mapGetters } from 'vuex';
 
 export default {
   methods: {
-    async cancelApplication(locationId, eventId) {
+    async cancelApplication(locationId, eventId,eventname) {
     const data = {
+        eventname:eventname,
         locationId: locationId,
         eventId: eventId,
         userID: this.getID,
         userEmail: this.getEmail
         };
-  if (confirm('Biztosan leszeretné mondani az eseményt?')) {
-    await axios.post('/cancelApplication', data)
+    if (confirm('Biztosan le szeretné mondani a(z)'+ ' "'+ eventname  +'" ' +' eseményt?')) {
+
+  await axios.post('/cancelApplication', data)
     .then(response => {
       // itt kezelheted a választ a szerverről
       console.log(response);
@@ -62,8 +64,7 @@ export default {
     });
   this.$emit("cancel-application", locationId, eventId);
   location.reload();
-  }
-  
+    }
 },
     formatDate(dateString) {
       const date = new Date(dateString);
@@ -93,11 +94,5 @@ computed: {
       'getID',
       'getEmail',
     ])},
-methods:{
-  submitBut: () => 
-  {
-    alert('Blablabla')
-  }
-}
 }
 </script>

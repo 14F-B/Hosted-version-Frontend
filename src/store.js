@@ -16,7 +16,12 @@ const store = createStore({
     citizenship:'',
 
   },
-  plugins: [createPersistedState()],
+  plugins: [
+    createPersistedState({
+      // Az időlimit beállítása 'expires' kulcs alatt
+      expires: 7 * 24 * 60 * 60 * 1000, // 1 hét miliszekundumban
+    })
+  ],
   mutations: {
     setID(state, id) {
         state.id = id;
