@@ -1,10 +1,10 @@
 <template>
               <div class="col col-sm-12 col-md-3 mb-5">
             <div class="m-1 text-start user_datapage" >
-              <img v-if="getPermission === 'admin'" src="../assets/img/profile_admin.png" class="img-fluid m-lg-3  " >
-              <img v-else-if="getPermission === 'user' && getGender === 'Férfi'" src="../assets/img/profile_male.png" class="img-fluid m-lg-3 ">
-              <img v-else-if="getPermission === 'user' && getGender === 'Nő'" src="../assets/img/profile_female.png" class="img-fluid m-lg-3 ">
-              <img v-else-if="getPermission === 'user' && getGender === 'Nem adom meg'" src="../assets/img/profile_gender_neutral.png" class="img-fluid m-lg-3">
+              <img v-if="getPermission === 'admin'" src="../assets/pictures/profile_admin.png" class="img-fluid m-lg-3  " >
+              <img v-else-if="getPermission === 'user' && getGender === 'Férfi'" src="../assets/pictures/profile_male.png" class="img-fluid m-lg-3 ">
+              <img v-else-if="getPermission === 'user' && getGender === 'Nő'" src="../assets/pictures/profile_female.png" class="img-fluid m-lg-3 ">
+              <img v-else-if="getPermission === 'user' && getGender === 'Nem adom meg'" src="../assets/pictures/profile_gender_neutral.png" class="img-fluid m-lg-3">
               <hr>
               <div class="mt-2">Név: <span class=" mt-2">{{ getName }}</span></div>
               <div class="mt-2">E-mail: <span id="email">{{ getEmail }}</span></div>
@@ -19,7 +19,7 @@
                 </form>
               </template>
               <template v-if="getPermission === 'admin'">
-                <button class="btn btn-light mt-3 w-100"><a class="text-dark" href="/adminpage">Adminisztráció</a></button>
+                <button class="btn btn-light mt-3 w-100"><a class="text-dark" ref="adminButton">Adminisztráció</a></button>
               </template>
             </div>
           </div>
@@ -69,6 +69,16 @@ computed: {
       'getBirthday',
       'getPermission'
     ])},
+   mounted() {
+    // Gomb elérése a DOM-ban a ref segítségével
+    const adminButton = this.$refs.adminButton;
+
+    // Eseménykezelő hozzáadása a gombhoz
+    adminButton.addEventListener("click", () => {
+      // Átirányítás az "/adminpage" oldalra
+      window.location.href = "/adminpage";
+    });
+    }
 }
 </script>
 

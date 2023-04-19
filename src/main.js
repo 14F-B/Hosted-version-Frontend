@@ -14,7 +14,6 @@ import "aos/dist/aos.css";
 import "./assets/css/style.css";
 import "./assets/bootstrap-icons/bootstrap-icons.css";
 
-
 // axios.defaults.baseURL = 'http://localhost:5172/docs';
 axios.defaults.baseURL = 'https://goeventapiservice.cyclic.app/docs';
 axios.interceptors.request.use(config => {

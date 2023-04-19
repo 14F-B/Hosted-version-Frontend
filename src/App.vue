@@ -1,9 +1,19 @@
 <script>
-
+export default {
+  mounted() {
+    let preloader = document.querySelector('#preloader');
+    if (preloader) {
+      window.addEventListener('load', () => {
+        preloader.remove();
+      });
+    }
+  }
+};
 </script>
 
 <template>    
     <RouterView />
+    <div id="preloader"></div>
 </template>
 
 <style>

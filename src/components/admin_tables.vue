@@ -1,5 +1,5 @@
 <template>
-    <div class="container" id="eventTable">
+    <div class="container" id="eventTable" style="overflow-y: auto;">
         <table class="table table-bordered" id="tbl_events">
             <thead>
                 <tr class="adminpage-tableheader bg-light">
@@ -48,7 +48,7 @@
     </div>
 
 <!-- FELHASZNÁLÓK ADATAIT TARTALMAZÓ TÁBLÁZAT -->
-    <div id="usersTable" class="container"  style="display: none;">
+    <div id="usersTable" class="container"  style="display: none; overflow-y: auto;">
       <table class="table table-bordered" id="tbl_users">
         <thead>
           <tr class="adminpage-tableheader bg-light">

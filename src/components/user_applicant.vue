@@ -1,7 +1,9 @@
 <template>
-    <div class="mt-5 col col-sm-12 col-md-8">
+    <div class="mt-5 col col-sm-12 col-md-8" >
     <h3 class="text-start text-uppercase">Eseményeim</h3>
-    <table class="table table-striped text-white text-start">
+
+    <div  style="overflow-y: auto;">
+    <table class="table table-striped text-white text-start"> 
       <thead>
         <tr>
           <th scope="col">#</th>
@@ -33,6 +35,7 @@
       </tbody>
     </table>
   </div>
+  </div>
 </template>
 
 
@@ -62,9 +65,10 @@ export default {
       // itt kezelheted a hibát, ha a kérés nem sikerült
       console.error(error);
     });
-  this.$emit("cancel-application", locationId, eventId);
-  location.reload();
+    this.$emit("cancel-application", locationId, eventId);
     }
+    location.reload();
+
 },
     formatDate(dateString) {
       const date = new Date(dateString);
