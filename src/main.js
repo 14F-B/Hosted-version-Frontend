@@ -13,6 +13,7 @@ import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import "aos/dist/aos.css";
 import "./assets/css/style.css";
 import "./assets/bootstrap-icons/bootstrap-icons.css";
+import "../node_modules/glightbox/dist/css";
 
 
 // axios.defaults.baseURL = 'http://localhost:5172/docs';
