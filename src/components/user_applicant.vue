@@ -8,7 +8,7 @@
           <th scope="col text-uppercase">Esemény neve</th>
           <th scope="col text-uppercase">Helyszín</th>
           <th scope="col text-uppercase">Dátum</th>
-          <th scope="col text-uppercase">Lemondás</th>
+          <th v-on:click="submitBut" scope="col text-uppercase">Lemondás</th>
         </tr>
       </thead>
       <tbody v-if="eventsbyId && eventsbyId.length">
@@ -91,5 +91,11 @@ computed: {
       'getID',
       'getEmail',
     ])},
+methods:{
+  submitBut: () => 
+  {
+    alert('Blablabla')
+  }
+}
 }
 </script>
