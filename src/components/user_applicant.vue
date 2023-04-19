@@ -8,7 +8,7 @@
           <th scope="col text-uppercase">Esemény neve</th>
           <th scope="col text-uppercase">Helyszín</th>
           <th scope="col text-uppercase">Dátum</th>
-          <th v-on:click="submitBut" scope="col text-uppercase">Lemondás</th>
+          <th scope="col text-uppercase">Lemondás</th>
         </tr>
       </thead>
       <tbody v-if="eventsbyId && eventsbyId.length">
@@ -49,8 +49,8 @@ export default {
         userID: this.getID,
         userEmail: this.getEmail
         };
-
-  await axios.post('/cancelApplication', data)
+  if (confirm('Biztosan leszeretné mondani az eseményt?')) {
+    await axios.post('/cancelApplication', data)
     .then(response => {
       // itt kezelheted a választ a szerverről
       console.log(response);
@@ -62,6 +62,8 @@ export default {
     });
   this.$emit("cancel-application", locationId, eventId);
   location.reload();
+  }
+  
 },
     formatDate(dateString) {
       const date = new Date(dateString);
