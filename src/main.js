@@ -8,7 +8,7 @@ import router from "./routes.js";
 import store from './store';
 
 import "bootstrap/dist/css/bootstrap.min.css";
-import 'bootstrap/dist/js/bootstrap.bundle.min.js';
+import 'bootstrap/dist/js/bootstrap.bundle.js';
 
 import "aos/dist/aos.css";
 import "./assets/css/style.css";
