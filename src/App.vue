@@ -7,6 +7,18 @@ export default {
         preloader.remove();
       });
     }
+    const backtotop = document.querySelector('.back-to-top');
+    if (backtotop) {
+    const toggleBacktotop = () => {
+      if (window.scrollY > 100) {
+        backtotop.classList.add('active');
+      } else {
+        backtotop.classList.remove('active');
+      }
+    };
+    window.addEventListener('load', toggleBacktotop);
+    window.addEventListener('scroll', toggleBacktotop);
+  }
   }
 };
 </script>
@@ -14,6 +26,7 @@ export default {
 <template>    
     <RouterView />
     <div id="preloader"></div>
+    <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-square-fill text-light"></i></a>
 </template>
 
 <style>
