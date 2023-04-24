@@ -1645,3 +1645,14 @@ body::-webkit-scrollbar-thumb {
   background-color: #00FFFF;
   border-radius: 20px;   
 }
+
+input[type="checkbox" i] {
+  background-color: initial;
+  cursor: default;
+  appearance: auto;
+  box-sizing: border-box;
+  margin: 3px 3px 3px 4px;
+  padding: initial;
+  border: 1px solid #1ceac8; /* Kék színű szegély */
+  border-radius: 0%; /* Szögletes forma */
+}

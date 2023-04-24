@@ -44,21 +44,27 @@ export default {
 },
 
   methods: {
-    async refreshpassword() {
-      try {
-        const response = await axios.put('/refreshPassword', {
-          id:this.getID,
-          password_old: this.password_old,
-          password_new: this.password_new,
-          password_new_match: this.password_new_match
-        });
-        console.log(response.data);
-        location.reload();
+    refreshpassword() {
+  return new Promise((resolve, reject) => {
+    axios.put('/refreshPassword', {
+      id: this.getID,
+      password_old: this.password_old,
+      password_new: this.password_new,
+      password_new_match: this.password_new_match
+    })
+    .then(response => {
+      console.log(response.data);
+      resolve(response);
+    })
+    .catch(error => {
+      console.error(error);
+      reject(error);
+    });
+    location.reload();
 
-      } catch (error) {
-        console.error(error);
-      }
-    },
+  });
+  
+  }
   },
   computed: {
     ...mapGetters([
