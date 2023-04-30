@@ -16,10 +16,7 @@ import "./assets/bootstrap-icons/bootstrap-icons.css";
 
 // axios.defaults.baseURL = 'http://localhost:5172/docs';
 axios.defaults.baseURL = 'https://goeventapiservice.cyclic.app/docs';
-axios.interceptors.request.use(config => {
-    config.headers['Origin'] = 'https://goeventhungary.netlify.app';
-    return config;
-  });
+
 
 const app = createApp(App);
 
