@@ -38,6 +38,7 @@
 
 <script>
 import { mapGetters, mapActions } from 'vuex'
+// import { on, select } from '../assets/js/main.js'
 
 
 export default {
@@ -56,34 +57,43 @@ export default {
   },
 mounted() {
   // Hamburger menü gombra kattintás eseménykezelő
-  const mediaQuery = window.matchMedia('(max-width: 768px)');
-  if (mediaQuery.matches) {
-    this.$el.querySelector('.mobile-nav-toggle').addEventListener('click', (e) => {
-      this.$el.querySelector('#navbar').classList.toggle('navbar-mobile')
-      e.target.classList.toggle('bi-list')
-      e.target.classList.toggle('bi-x')
-    })
-  }
+  this.$el.querySelector('.mobile-nav-toggle').addEventListener('click', (e) => {
+    this.$el.querySelector('#navbar').classList.toggle('navbar-mobile')
+    e.target.classList.toggle('bi-list')
+    e.target.classList.toggle('bi-x')
+  })
 
- //  A navigációs sáv görgetéskor aktív állapotot mutatja (éppen aktuális válik kék színűvé)
+  // Navbar dropdown elemre kattintás eseménykezelő
+  this.$el.querySelector('.navbar .dropdown > a').addEventListener('click', (e) => {
+    if (this.$el.querySelector('#navbar').classList.contains('navbar-mobile')) {
+      e.preventDefault()
+      e.target.nextElementSibling.classList.toggle('dropdown-active')
+    }
+  }, true)
+
+  /**
+   * Navbar links active state on scroll
+   */
   let navbarlinks = this.$el.querySelectorAll('#navbar .scrollto');
-    const navbarlinksActive = () => {
-      let position = window.scrollY + 200;
-      navbarlinks.forEach(navbarlink => {
-        if (!navbarlink.hash) return;
-        let section = this.$el.querySelector(navbarlink.hash);
-        if (!section) return;
-        if (position >= section.offsetTop && position <= (section.offsetTop + section.offsetHeight)) {
-          navbarlink.classList.add('active');
-        } else {
-          navbarlink.classList.remove('active');
-        }
-      });
-    };
-    window.addEventListener('load', navbarlinksActive);
-    window.addEventListener('scroll', navbarlinksActive);
+  const navbarlinksActive = () => {
+    let position = window.scrollY + 200;
+    navbarlinks.forEach(navbarlink => {
+      if (!navbarlink.hash) return;
+      let section = this.$el.querySelector(navbarlink.hash);
+      if (!section) return;
+      if (position >= section.offsetTop && position <= (section.offsetTop + section.offsetHeight)) {
+        navbarlink.classList.add('active');
+      } else {
+        navbarlink.classList.remove('active');
+      }
+    });
+  };
+  window.addEventListener('load', navbarlinksActive);
+  window.addEventListener('scroll', navbarlinksActive);
 
-  // Fejléc figyelembe vétele
+  /**
+   * Scrolls to an element with header offset
+   */
   const scrollto = (el) => {
     let header = this.$el.querySelector('#header');
     let offset = header.offsetHeight;
@@ -94,29 +104,31 @@ mounted() {
     });
   };
 
- // Mobilnézet: Menü eltűntetése, ha a megadott elemre kattintunk
-    const selectHeader = this.$el.querySelector('#header');
-    const selectTopbar = this.$el.querySelector('#topbar');
-    if (selectHeader) {
-      const headerScrolled = () => {
-        if (window.scrollY > 100) {
-          selectHeader.classList.add('header-scrolled');
-          if (selectTopbar) {
-            selectTopbar.classList.add('topbar-scrolled');
-          }
-        } else {
-          selectHeader.classList.remove('header-scrolled');
-          if (selectTopbar) {
-            selectTopbar.classList.remove('topbar-scrolled');
-          }
+  /**
+   * Toggle .header-scrolled class to #header when page is scrolled
+   */
+  let selectHeader = this.$el.querySelector('#header');
+  let selectTopbar = this.$el.querySelector('#topbar');
+  if (selectHeader) {
+    const headerScrolled = () => {
+      if (window.scrollY > 100) {
+        selectHeader.classList.add('header-scrolled');
+        if (selectTopbar) {
+          selectTopbar.classList.add('topbar-scrolled');
         }
-      };
-      headerScrolled();
-      window.addEventListener('scroll', headerScrolled);
-    }
-
-
- // Legörgetés a megfelelő section elemre
+      } else {
+        selectHeader.classList.remove('header-scrolled');
+        if (selectTopbar) {
+          selectTopbar.classList.remove('topbar-scrolled');
+        }
+      }
+    };
+    window.addEventListener('load', headerScrolled);
+    window.addEventListener('scroll', headerScrolled);
+  }
+  /**
+   * Scroll with offset on page load with hash links in the URL
+   */
   if (window.location.hash) {
     if (this.$el.querySelector(window.location.hash)) {
       scrollto(window.location.hash);

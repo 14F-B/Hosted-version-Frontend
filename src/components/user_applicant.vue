@@ -44,12 +44,6 @@ import axios from 'axios';
 import { mapGetters } from 'vuex';
 
 export default {
-  data() {
-        return {
-            eventsbyId: [],
-        };
-    },
-
   methods: {
     async cancelApplication(locationId, eventId,eventname) {
     const data = {
@@ -60,22 +54,22 @@ export default {
         userEmail: this.getEmail
         };
     if (confirm('Biztosan le szeretné mondani a(z)'+ ' "'+ eventname  +'" ' +' eseményt?')) {
-      await axios.post('/cancelApplication', data)
-        .then(response => {
-          // Válasz kezelése
-          console.log(response);
 
-        })
-        .catch(error => {
-          // Hiba kezelése
-          console.error(error);
-        });
-        //
-        this.$emit("cancel-application", locationId, eventId);
-        }
-        location.reload();
+  await axios.post('/cancelApplication', data)
+    .then(response => {
+      // itt kezelheted a választ a szerverről
+      console.log(response);
+
+    })
+    .catch(error => {
+      // itt kezelheted a hibát, ha a kérés nem sikerült
+      console.error(error);
+    });
+    this.$emit("cancel-application", locationId, eventId);
+    }
+    location.reload();
+
 },
-    // Dátum formázása magyar formátumra
     formatDate(dateString) {
       const date = new Date(dateString);
       const options = { year: 'numeric', month: '2-digit', day: '2-digit' };
@@ -83,6 +77,12 @@ export default {
     },
   },
 
+  data() {
+        return {
+            eventsbyId: [],
+        };
+    },
+    
   mounted() {
       axios.get("/userapplied/"+this.getID)
       .then(response => {
@@ -93,7 +93,6 @@ export default {
         console.log(error);
       });
 },
-
 computed: {
     ...mapGetters([
       'getID',
