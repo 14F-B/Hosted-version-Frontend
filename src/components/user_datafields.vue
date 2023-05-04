@@ -52,11 +52,6 @@ export default {
     },
   },
 
-  data() {
-        return {
-            eventsbyId: [],
-        };
-    },
 
 computed: {
     ...mapGetters([
@@ -75,9 +70,9 @@ computed: {
 
     // Eseménykezelő hozzáadása a gombhoz
     adminButton.addEventListener("click", () => {
-      // Átirányítás az "/adminpage" oldalra
-      window.location.href = "/adminpage";
+      window.location.href = "/adminpage";       // Átirányítás az "/adminpage" oldalra
     });
+    
     }
 }
 </script>

@@ -35,7 +35,7 @@
                         </form> -->
       
                         <form @submit.prevent="deleteEvent(event.id,event.name)">
-                          <button type="submit" class="btn bg-transparent btn-sm" @click="confirmDelete(event.name)">
+                          <button type="submit" class="btn bg-transparent btn-sm">
                             <i class="bi bi-trash3-fill p-2 text-danger"></i>
                           </button>
                         </form>
@@ -75,7 +75,7 @@
         <td>{{ user.permission }}</td>
         <td>
           <form @submit.prevent="deleteUser(user.id,user.name)">
-            <button type="submit" class="btn bg-transparent btn-sm" @click="confirmDelete(user.name)">
+            <button type="submit" class="btn bg-transparent btn-sm">
               <i class="bi bi-person-x p-2 text-danger"></i>
             </button>
           </form>
@@ -133,7 +133,7 @@ export default {
     if (confirm('Biztosan törölni szeretné a(z)'+ ' "'+ eventname  +'" ' +' eseményt?')) {
     axios.delete('/deleteEvent/' + id)
       .then(response => {
-        // Sikeres törlés esetén a felhasználói tömb frissítése
+        // Sikeres törlés esetén az események tömb frissítése
         this.events = response.data;
       })
       .catch(error => {

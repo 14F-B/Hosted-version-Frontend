@@ -18,8 +18,8 @@ const store = createStore({
   },
   plugins: [
     createPersistedState({
-      // Az időlimit beállítása 'expires' kulcs alatt
-      expires: 7 * 24 * 60 * 60 * 1000, // 1 hét miliszekundumban
+      // Az időlimit beállítása 'expires' kulcs alatt (1 hét)
+      expires: 7 * 24 * 60 * 60 * 1000,
     })
   ],
   mutations: {
@@ -44,11 +44,19 @@ const store = createStore({
     setGender(state, gender) {
         state.gender = gender;
     },
-
     setPermission(state, permission) {
       state.permission = permission;
     },
-    clearUserData(state) { // új mutáció
+    setToken(state, token) {
+      state.token = token;
+      localStorage.setItem('token', token);
+    },
+    clearToken(state) {
+      state.token = null;
+      localStorage.removeItem('token');
+    },
+    // Felhasználói adatok törlése kijelentkezés után
+    clearUserData(state) {
       state.id = '';
       state.name = '';
       state.email = '';
@@ -72,6 +80,7 @@ const store = createStore({
           password: password
         });
 
+        // Mutációk beállítása a kapott adatokkal
         commit('setID', response.data.user.id);
         commit('setName', response.data.user.name);
         commit('setEmail', response.data.user.email);
@@ -80,10 +89,14 @@ const store = createStore({
         commit('setGender', response.data.user.gender);
         commit('setPermission', response.data.user.permission);
         commit('setPassword', response.data.user.password);
+        commit('setToken', response.data.token); // Token elmentése
 
+        // Weboldal újratöltés
         location.reload();
 
       } catch (error) {
+
+        // Hibakezelés, ha nem megfelelő jelszó, vagy ha nincs jogosultsága az oldalnak a bejelentkeztetésre
         const errorDiv = document.getElementById('errorDiv'); 
 
         if (error.response && error.response.status === 401) {
@@ -98,12 +111,15 @@ const store = createStore({
         errorDiv.classList.add('border', 'border-danger', 'text-danger', 'p-2','col-8','text-start'); 
       }
     },
-    logout({ commit }) { // új action
+    // Kijelentkezés esetén store-ban tárolt adatok törlése, és visszairányítás a főoldalra
+    logout({ commit }) {
       commit('clearUserData');
       router.push('/');
     }
   },
   getters: {
+
+    // Más komponensekben való hozzáférés kialakítása
     getID: state => state.id,
     getEmail: state => state.email,
     getPassword: state => state.password,
@@ -112,8 +128,7 @@ const store = createStore({
     getGender: state => state.gender,
     getBirthday: state => state.birthday,
     getPermission: state => state.permission,
-
-  }
+    }
 });
 
 export default store;

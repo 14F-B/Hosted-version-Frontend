@@ -4,14 +4,14 @@
       <div class="row text-center">
 
         <div class="col-sm-12 d-flex align-items-center mb-5 mt-5 justify-content-center position-relative" data-aos="zoom-in" data-aos-delay="200">
-          <a href="https://www.youtube.com/watch?v=PhO6VmhqODE" class="glightbox play-btn"></a>
+          <a href="https://www.youtube.com/watch?v=TnbxtNWcGnw" class="glightbox play-btn"></a>
         </div>
 
         <div class="col-sm-4"></div>
 
         <div class="carousel-content animate__animated animate__fadeInUp col-sm-4  mt-5" data-aos="fade-up">
           <p class="next-event-text">A következő esemény:</p>
-          <h4>{{ events.length > 0 ? events[0].name : 'Nincsenek közelgő esemény' }}</h4>
+          <h4>{{ events.length > 0 ? events[0].name : 'Nincs közelgő esemény' }}</h4>
  
           <i class="bi bi-pin-map event-icons"><span v-if="events.length > 0">{{ events[0].city }}, {{ events[0].street }}{{ events[0].house_number ? ' ' + events[0].house_number + '.' : '' }}</span></i>
           <div class="d-flex flex-nowrap text-center">

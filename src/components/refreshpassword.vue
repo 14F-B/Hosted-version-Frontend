@@ -61,7 +61,7 @@ export default {
           this.$nextTick(() => {
             // Az osztályok törlése az errorDiv elemről
             this.errorDiv.classList.remove('border-danger', 'border-info','text-danger','text-info');
-            this.errorDiv.innerHTML = '<i class="bi bi-check-circle-fill"></i> Sikeres jelszóváltoztatás!';
+            this.errorDiv.innerHTML = '<i class="bi bi-check-circle-fill"></i>'+response.data.message;
             this.errorDiv.classList.add('border', 'border-info', 'text-info', 'p-2', 'col-8', 'text-start');
           });
           resolve(response);
@@ -72,7 +72,7 @@ export default {
           this.$nextTick(() => {
             // Az osztályok törlése az errorDiv elemről
             this.errorDiv.classList.remove('border-info', 'border-info','text-danger','text-info');
-            this.errorDiv.innerHTML = '<i class="bi bi-exclamation-octagon-fill"></i> Sikertelen jelszóváltoztatás!';
+            this.errorDiv.innerHTML = '<i class="bi bi-exclamation-octagon-fill"></i>' + '  '+error.response.data.message;
             this.errorDiv.classList.add('border', 'border-danger', 'text-danger', 'p-2', 'col-8', 'text-start');
           });
           reject(error);
@@ -86,7 +86,7 @@ export default {
     ])
   },
   mounted() {
-    // Az errorDiv referenciájának beállítása a mounted életciklus metódusban
+    // Az errorDiv referenciájának beállítása a mounted (életciklus) metódusban
     this.errorDiv = this.$refs.errorDiv;
   }
 }

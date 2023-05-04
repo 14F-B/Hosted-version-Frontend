@@ -1,11 +1,16 @@
+
 <script>
 export default {
   mounted() {
     let preloader = document.querySelector('#preloader');
     if (preloader) {
+      preloader.style.display = 'block';
       window.addEventListener('load', () => {
-        preloader.remove();
+        preloader.style.display = 'none';
       });
+      setTimeout(() => {
+        preloader.style.display = 'none';
+      }, 5000);
     }
     const backtotop = document.querySelector('.back-to-top');
     if (backtotop) {
@@ -35,4 +40,3 @@ export default {
     opacity: 1 !important;
 }
 </style>
-
