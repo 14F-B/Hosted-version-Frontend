@@ -4,8 +4,8 @@
             <div class="section-title">
               <h2>Inspirálódj eseményeink közül</h2>
               <p>Aktuális programok</p>
-               <label v-for="(item, index) in items" :key="index">
-                <input type="checkbox" v-model="selectedItems" :value="item">{{ item }}
+               <label v-for="(item, index) in categories" :key="index">
+                <input type="checkbox" v-model="selectedCategories" :value="item">{{ item }}
               </label>
             </div>
             <div class="container-fluid text-dark">
@@ -41,9 +41,8 @@ export default {
     data() {
         return {
             events: [],
-            countDownInterval: null,
-            items: ['Zene (koncert)','Film','Sport','Kultúra','Irodalom','Fesztivál,tematikus napok','Konferencia','Egyéb kategória'], 
-            selectedItems: []
+            categories: ['Zene (koncert)','Film','Sport','Kultúra','Irodalom','Fesztivál,tematikus napok','Konferencia','Egyéb kategória'], 
+            selectedCategories: []
         };
     },
     mounted() {
@@ -115,8 +114,8 @@ export default {
     },
      filteredEvents() {
       // Szűrjük az eseményeket a kiválasztott kategóriák alapján
-      if (this.selectedItems.length > 0) {
-        return this.events.filter(event => this.selectedItems.includes(event.category));
+      if (this.selectedCategories.length > 0) {
+        return this.events.filter(event => this.selectedCategories.includes(event.category));
       } else {
         // Ha nincs kiválasztott kategória, akkor az összes eseményt megjelenítjük
         return this.events;

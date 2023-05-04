@@ -86,7 +86,7 @@ export default {
     ])
   },
   mounted() {
-    // Az errorDiv referenciájának beállítása a mounted életciklus metódusban
+    // Az errorDiv referenciájának beállítása a mounted (életciklus) metódusban
     this.errorDiv = this.$refs.errorDiv;
   }
 }

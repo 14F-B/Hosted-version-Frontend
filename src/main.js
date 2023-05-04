@@ -7,14 +7,16 @@ import App from "./App.vue";
 import router from "./routes.js";
 import store from './store';
 
+// NPM Csomagok integrálása
 import "bootstrap/dist/css/bootstrap.min.css";
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
-
 import "aos/dist/aos.css";
+
+// Saját assets fájlok/csomagok integrálása
 import "./assets/css/style.css";
 import "./assets/bootstrap-icons/bootstrap-icons.css";
 
-// axios.defaults.baseURL = 'http://localhost:5172/docs';
+// Axios alapértelmezett URL beállítása
 axios.defaults.baseURL = 'https://goeventapiservice.cyclic.app/docs';
 
 

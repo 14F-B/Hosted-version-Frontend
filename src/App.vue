@@ -1,12 +1,16 @@
 <script>
 export default {
   mounted() {
+
+    // Betöltőképernyő eltűntetése, ha az oldal betöltött
     let preloader = document.querySelector('#preloader');
     if (preloader) {
       window.addEventListener('load', () => {
         preloader.remove();
       });
     }
+
+    // "Fel" gomb interakciója
     const backtotop = document.querySelector('.back-to-top');
     if (backtotop) {
     const toggleBacktotop = () => {
@@ -16,6 +20,8 @@ export default {
         backtotop.classList.remove('active');
       }
     };
+
+    // Eseménykezelők
     window.addEventListener('load', toggleBacktotop);
     window.addEventListener('scroll', toggleBacktotop);
   }
