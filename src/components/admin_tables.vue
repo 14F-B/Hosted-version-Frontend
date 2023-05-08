@@ -116,9 +116,9 @@ export default {
       });
   },
   methods: {
-  deleteUser(id, username) {
+  async deleteUser(id, username) {
     if (confirm('Biztosan törölni szeretné a(z)'+ ' "'+ username  +'" ' +'nevű felhasználót?')) {
-    axios.delete('/deleteUser/' + id)
+    await axios.delete('/deleteUser/' + id)
       .then(response => {
         // Sikeres törlés esetén a felhasználói tömb frissítése
         this.users = response.data;
@@ -129,9 +129,9 @@ export default {
       location.reload();
   }
   },
-  deleteEvent(id,eventname) {
+  async deleteEvent(id,eventname) {
     if (confirm('Biztosan törölni szeretné a(z)'+ ' "'+ eventname  +'" ' +' eseményt?')) {
-    axios.delete('/deleteEvent/' + id)
+    await axios.delete('/deleteEvent/' + id)
       .then(response => {
         // Sikeres törlés esetén az események tömb frissítése
         this.events = response.data;

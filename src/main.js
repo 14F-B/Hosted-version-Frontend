@@ -19,13 +19,21 @@ axios.defaults.baseURL = 'https://goeventapiservice.cyclic.app/docs';
 
 axios.interceptors.request.use(config => {
   const token = store.state.token;
+  const permission = store.state.permission;
+
   if (token) {
     config.headers.Authorization = `Bearer ${token}`;
   }
+
+  if (permission) {
+    config.headers['X-User-Permission'] = permission;
+  }
+
   return config;
 }, error => {
   return Promise.reject(error);
 });
+
 
 const app = createApp(App);
 
