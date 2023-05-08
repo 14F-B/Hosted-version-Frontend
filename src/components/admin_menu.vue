@@ -13,7 +13,11 @@
      Felhasználók listája
      </button>
      <label class="button btn btn-light m-1" for="modal-toggle">+Új esemény/admin</label>
-  </div>
+      <router-link to="/adminpage/scan">
+        <button type="button" class="btn btn-light" title="QR Kód olvasó">QR Kód olvasó</button>
+      </router-link>  
+</div>
+
   <div>
      <div class="rt-container">
         <div class="col-rt-12">
@@ -242,6 +246,7 @@ export default {
       // Mentés
       doc.save(fileName);
     },
+
     beforeDestroy() {
     document.removeEventListener('keydown', this.handleKeyDown);
     }
