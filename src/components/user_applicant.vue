@@ -19,12 +19,19 @@
           <td class="text-white">{{ eventsbyId.name }}</td>
           <td class="text-white">{{ eventsbyId.city }}, {{ eventsbyId.street }} {{ eventsbyId.house_number  ? eventsbyId.house_number + '.' : '' }}</td>
           <td class="text-white">{{ eventsbyId.formatted_date }}</td>
-          <td class="text-white">
-            <form @submit.prevent="cancelApplication(eventsbyId.loc_id, eventsbyId.id,eventsbyId.name)">
-              <button type="submit" id="cancelButton" class="btn btn-danger btn-sm">
-                <i class="bi bi-x-circle d-flex align-items-center"><span class="p-1">Lemondom</span></i>
+          <td class="text-white ">
+            <div class="d-flex align-items-center ">
+            <form @submit.prevent="generateqrcode(eventsbyId.event_pass_code)">
+              <button type="submit" id="qrcode" class="btn btn-transparent btn-sm d-flex flex-wrap w-auto align-middle ">
+                <i class="bi bi-qr-code d-flex h3 text-white m-0"></i>
               </button>
             </form>
+            <form @submit.prevent="cancelApplication(eventsbyId.loc_id, eventsbyId.id,eventsbyId.name)">
+              <button type="submit" id="cancelButton" class="btn btn-danger btn-sm d-flex flex-wrap w-auto m-1">
+                <i class="bi bi-x-circle d-flex align-items-center"><span class="p-1" style="flex-shrink: 0;">Lemondom</span></i>
+              </button>
+            </form>
+            </div>
           </td>
         </tr>
       </tbody>
@@ -42,6 +49,7 @@
 <script>
 import axios from 'axios';
 import { mapGetters } from 'vuex';
+import qrcode from 'qrcode';
 
 export default {
   data() {
@@ -81,6 +89,17 @@ export default {
       const options = { year: 'numeric', month: '2-digit', day: '2-digit' };
       return new Intl.DateTimeFormat('hu-HU', options).format(date);
     },
+
+async generateqrcode(passCode) {
+  const qrCodeUrl = `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${passCode}`;
+  const newWindow = window.open(qrCodeUrl, '_blank', 'height=400,width=400');
+  if (newWindow) {
+    newWindow.focus();
+  } else {
+    alert('A QR kód megjelenítéséhez engedélyezni kell az ablakok megnyitását.');
+  }
+},
+
   },
 
   mounted() {

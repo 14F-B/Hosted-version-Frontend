@@ -485,86 +485,17 @@
 <p>- A Nemzeti Adatvédelmi és Információszabadság Hatóság ajánlása az előzetes tájékoztatás adatvédelmi követelményeiről</p>
 <p>- Az Európai Parlament és a Tanács (EU) 2016/679 rendelete (2016. április 27.) a természetes személyeknek a személyes adatok kezelése tekintetében történő védelméről és az ilyen adatok szabad áramlásáról, valamint a 95/46/EK rendelet hatályon kívül helyezéséről</p></div></div>
           </div>
+          <LoginWindow></LoginWindow>
           <footerbar></footerbar>
     </main>
 
 </template>
   
 <script>
-import axios from 'axios';
 import navigationmenu from '../components/navigationbar.vue';
+import LoginWindow from '../components/login_signup.vue';
 import footerbar from '../components/footerbar.vue';
 
-export default {
-  name: "UserDataPage",
-  props: {
-    isAdmin: {
-      type: String,
-      required: true,
-    },
-    name: {
-      type: String,
-      required: true,
-    },
-    email: {
-      type: String,
-      required: true,
-    },
-    citizenship: {
-      type: String,
-      required: true,
-    },
-    birthday: {
-      type: String,
-      required: true,
-    },
-    gender: {
-      type: String,
-      required: true,
-    },
-    id: {
-      type: String,
-      required: true,
-    },
-    appliedEvents: {
-      type: Array,
-      required: true,
-    },
-  },
-  methods: {
-    cancelApplication(locationId, eventId) {
-      this.$emit("cancel-application", locationId, eventId);
-    },
-
-    deleteUser(id) {
-      axios.delete('http://localhost:5172/docs/deleteUser/' + id)
-        .then(response => {
-          // Sikeres törlés esetén a felhasználói tömb frissítése
-          this.users = response.data;
-        })
-        .catch(error => {
-          console.log(error);
-        });
-        console.log(id)
-    },
-  },
-  data() {
-        return {
-            eventsbyId: [],
-            
-
-        };
-    },
-  mounted() {
-      axios.get("http://localhost:5172/docs/userapplied/10")
-      .then(response => {
-        this.eventsbyId = response.data;
-        
-      })
-      .catch(error => {
-        console.log(error);
-      });
-},
-components:{navigationmenu,footerbar}
+export default {components:{navigationmenu,LoginWindow,footerbar}
 }
 </script>

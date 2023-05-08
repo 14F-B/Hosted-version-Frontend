@@ -2,6 +2,7 @@ import { createStore } from 'vuex';
 import createPersistedState from 'vuex-persistedstate';
 import axios from 'axios';
 import router from './routes';
+import jwt_decode from 'jwt-decode';
 
 
 const store = createStore({
@@ -14,7 +15,7 @@ const store = createStore({
     birthday:'',
     gender:'',
     citizenship:'',
-
+    token:null
   },
   plugins: [
     createPersistedState({
@@ -114,9 +115,23 @@ const store = createStore({
     // Kijelentkezés esetén store-ban tárolt adatok törlése, és visszairányítás a főoldalra
     logout({ commit }) {
       commit('clearUserData');
+      commit('clearToken');
       router.push('/');
+    },
+    checkTokenExpiration({ commit }) {
+      const token = localStorage.getItem('token');
+      if (token) {
+        const decodedToken = jwt_decode(token);
+        const currentTime = Date.now() / 1000;
+        if (decodedToken.exp < currentTime) {
+          commit('clearUserData');
+          commit('clearToken');
+          router.push('/');
+        }
+      }
     }
   },
+  
   getters: {
 
     // Más komponensekben való hozzáférés kialakítása
@@ -128,7 +143,7 @@ const store = createStore({
     getGender: state => state.gender,
     getBirthday: state => state.birthday,
     getPermission: state => state.permission,
-    }
+    },
 });
 
 export default store;

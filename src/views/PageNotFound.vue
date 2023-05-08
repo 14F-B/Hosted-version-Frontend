@@ -13,14 +13,17 @@
           </div>
         </section>
     </main>
+    <LoginWindow></LoginWindow>
     <footerbar></footerbar>
 </template>
 
 <script>
 import navigationmenu from '../components/navigationbar.vue';
+import LoginWindow from '../components/login_signup.vue';
 import footerbar from '../components/footerbar.vue';
 
-export default {components:{navigationmenu, footerbar}}
+export default {components:{navigationmenu,LoginWindow,footerbar}
+}
 </script>
 
 <style>

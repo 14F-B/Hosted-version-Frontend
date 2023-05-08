@@ -1,5 +1,7 @@
 
 <script>
+import jwt_decode from 'jwt-decode';
+
 export default {
   mounted() {
     let preloader = document.querySelector('#preloader');
@@ -24,7 +26,18 @@ export default {
     window.addEventListener('load', toggleBacktotop);
     window.addEventListener('scroll', toggleBacktotop);
   }
+  },
+  created() {
+  const token = localStorage.getItem('token');
+  if (token) {
+    const decodedToken = jwt_decode(token);
+    const currentTime = Date.now() / 1000;
+    if (decodedToken.exp < currentTime) {
+      this.$store.dispatch('logout');
+    }
   }
+},
+
 };
 </script>
 
